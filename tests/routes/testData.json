@@ -1,0 +1,35 @@
+{
+  "headers":["MERGE","TIPO_SINTOMA","AREA_SINTOMA","SUB_AREA_SINTOMA","Incidência do Sintoma","Obs"],
+  "data": [
+    [
+      "APPS TV IRIS | APP COM ERRO | MODEM NÃO REGISTA",
+      "APPS TV IRIS","APP COM ERRO",
+      "MODEM NÃO REGISTA",
+      "TV",
+      "-"
+    ],
+    [
+      "APPS TV IRIS | ERRO NO ACESSO | DIAGNÓSTICO INCONCLUSIVO",
+      "APPS TV IRIS",
+      "ERRO NO ACESSO",
+      "DIAGNÓSTICO INCONCLUSIVO",
+      "TV",
+      "-"
+    ],
+    [
+      "APPS TV IRIS | INFORMAÇÃO INDISPONÍVEL | DIAGNÓSTICO INCONCLUSIVO",
+      "APPS TV IRIS","INFORMAÇÃO INDISPONÍVEL",
+      "DIAGNÓSTICO INCONCLUSIVO",
+      "TV",
+      "-"
+    ],
+    [
+      "APPS TV IRIS | ERRO NO ACESSO | PROBLEMA CONHECIDO",
+      "APPS TV IRIS",
+      "ERRO NO ACESSO",
+      "PROBLEMA CONHECIDO",
+      "TV",
+      "-"
+    ]
+  ]
+}
