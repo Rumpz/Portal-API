@@ -51,13 +51,34 @@ function columnsByID (id, callback) {
 
 function exportData (data, callback) {
   const outputs = getOuputs(data.selectedOutputs);
+  const inputs = getInputs(data.selectedInputs);
   const sql =
   `SELECT ${outputs}
   FROM ${data.searchTable}
   WHERE
-    ${data.searchDateType} BETWEEN ? AND ?`;
+    ${data.searchDateType} BETWEEN ? AND ?
+    ${inputs.sql}`;
   let values = [data.startDate, data.endDate];
+  for (let i in inputs.vals) {
+    values.push(inputs.vals[i]);
+  }
   dumperConn(data.dbConnection, sql, values, callback);
+}
+
+function getInputs (values) {
+  let keys = Object.keys(values);
+  let sql = '';
+  let searchVals = [];
+  keys.map(key => {
+    if (typeof values[key] === 'string') {
+      searchVals.push(values[key]);
+      sql += `\n AND ${key} = ?`;
+    } else {
+      searchVals.push(values[key]);
+      sql += `\n AND ${key} IN (?)`;
+    }
+  });
+  return {sql: sql, vals: searchVals};
 }
 
 function getOuputs (values) {

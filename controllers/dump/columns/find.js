@@ -40,7 +40,7 @@ function adjustData (arr) {
       setOutputs[outputs[i]] = false;
       outputsLabel[outputs[i]] = outputs[i];
     }
-/*     {"name": "ACCAO", "type": "select", "label": "Acção do Item", "isOpen": false, "icon": "slow", "value": null}, */
+    /* {"name": "ACCAO", "type": "select", "label": "Acção do Item", "isOpen": false, "icon": "slow", "value": null}, */
     return {
       colunasInput:
         {
@@ -66,11 +66,12 @@ function adjustData (arr) {
   return data;
 }
 
-  /*   INPUTS ARRAY ------------> 
-    outputs OBJ  ------------>  "CODIGO_OT": false,...
-    outputsLabel OBJ --------->  { "CODIGO_OT": "Codigo OT", */
+/* INPUTS ARRAY ------------>
+outputs OBJ  ------------>  "CODIGO_OT": false,...
+outputsLabel OBJ --------->  { "CODIGO_OT": "Codigo OT", */
 
 function exportXLS (data, callback) {
+  data.selectedInputs = JSON.parse(data.selectedInputs);
   dumpColFindModel.exportData(data, (err, rows) => {
     if (err) return callback(err);
     callback(null, rows);
