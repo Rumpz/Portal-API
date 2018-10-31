@@ -4,7 +4,7 @@
   "description": "reporting interface demo api",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
+    "test": "SET NODE_ENV='DEV' && jest",
     "start": "node --max_old_space_size=7144 bin/app.js"
   },
   "author": "",

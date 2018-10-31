@@ -37,7 +37,7 @@ module.exports = (database, sql, values, callback) => {
       if (err) return callback(err);
       callback(null, rows);
     });
-    console.log(query.sql);
+    if (process.env === 'DEV') console.log(query.sql);
     // if (process.env.DBlOGS) ;
   });
 };
