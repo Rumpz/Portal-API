@@ -1,5 +1,5 @@
 {
-  "connectionLimit": 10,
+  "connectionLimit": 5,
   "host": "WSTPVFIA001",
   "user": "sfemartins",
   "password": "bi2018inhy",

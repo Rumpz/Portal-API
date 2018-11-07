@@ -1,22 +1,24 @@
 const mysql = require('mysql');
 const ENV = process.env.NODE_ENV || 'dev';
-const devConfig = require(`./dev`);
-const testConfig = require(`./test`);
 const connectionError = {'code': 100, 'status': 'Error in connection database'};
-const pool = mysql.createPool(devConfig);
-const poolTest = mysql.createPool(testConfig);
+
+// DB configs
+// const fiaConfig = require(`./fia`);
+const navigationConfig = require('./navigation');
+
+// Pool configs
+// const fiaPool = mysql.createPool(fiaConfig);
+const navigationPool = mysql.createPool(navigationConfig);
 
 module.exports = (database, sql, values, callback) => {
   let pools = {
-    portal_reporting: pool,
-    portal_test: poolTest,
-    fia: pool,
-    noDB: pool
+    portal_reporting: navigationPool
   };
 
   /* database = process.env.NODE_ENV
     ? 'portal_test'
-    : database; */
+    : database;
+  */
 
   if (typeof values === 'function') {
     callback = values;
@@ -37,7 +39,7 @@ module.exports = (database, sql, values, callback) => {
       if (err) return callback(err);
       callback(null, rows);
     });
-    if (process.env === 'DEV') console.log(query.sql);
-    // if (process.env.DBlOGS) ;
+    console.log(query.sql);
+    // if (process.env.DBlOGS);
   });
 };

@@ -1,8 +1,7 @@
 // options imports and Constants
 const connection = require('db').connection;
 const portalDB = 'portal_reporting';
-const fiaDB = 'fia';
-const dumperTable = 'dumper';
+const dumperTable = 'portal_reporting.dumper';
 
 // Dumper connection
 const dumperConn = require('db').dumperConnection;
@@ -42,7 +41,7 @@ function columnsByID (id, callback) {
     dumper.tabela,
     dumper.maquina
   FROM ${dumperTable}
-  LEFT JOIN dumper_aux_tables ON (dumper.id = dumper_aux_tables.dumperFK)
+    LEFT JOIN dumper_aux_tables ON (dumper.id = dumper_aux_tables.dumperFK)
   WHERE
     dumper.id = ?
   ORDER BY dumper_aux_tables.input_label`;

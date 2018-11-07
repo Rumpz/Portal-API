@@ -1,5 +1,6 @@
 const dumpColFindModel = require('models').dump.columns.find;
-// const XLSX = require('xlsx');
+const moment = require('moment');
+const async = require('async');
 
 function options (callback) {
   dumpColFindModel.options((err, rows) => {
@@ -12,6 +13,7 @@ function columnsByID (query, callback) {
   const { id } = query;
   dumpColFindModel.columnsByID(id, (err, rows) => {
     if (err) return callback(err);
+    if (!rows.length) return callback(null, rows);
     // row[0] = OkPacket
     const adjustedData = adjustData(rows[1]);
     const inputs = adjustedData.map(e => e.colunasInput);
@@ -68,8 +70,28 @@ function adjustData (arr) {
 function exportXLS (data, callback) {
   data.selectedInputs = JSON.parse(data.selectedInputs);
   dumpColFindModel.exportData(data, (err, rows) => {
+    const filename = `./public/excelFiles/Extração_${data.searchTable}_${moment(data.startDate).format('YYYY-MM-DD')}_a_${data.endDate}.xlsx`;
     if (err) return callback(err);
-    callback(null, rows);
+    if (!rows.length) return callback(null, rows);
+
+    console.log('inside method');
+    const Excel = require('exceljs');
+    const workbook = new Excel.stream.xlsx.WorkbookWriter({filename: filename});
+    const worksheet = workbook.addWorksheet('my sheet');
+    const keys = Object.keys(rows[0]);
+    const col = [];
+
+    for (let i in keys) {
+      col.push({ header: keys[i], key: keys[i] });
+      worksheet.columns = col;
+    }
+
+    for (let i = 0; i <= rows.length; i++) {
+      worksheet.addRow(rows[i]).commit();
+    }
+    workbook.commit()
+      .then(response => callback(null, response.stream.path))
+      .catch(err => callback(err));
   });
 }
 

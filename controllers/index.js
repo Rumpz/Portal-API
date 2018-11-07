@@ -1,6 +1,8 @@
 module.exports = {
-  mainPage: require('./mainPage'),
+  users: require('./admin').users,
+  mainpage: require('./mainpage'),
   reporting: require('./reporting'),
   dump: require('./dump'),
-  navbar: require('./navbar')
+  navbar: require('./navbar'),
+  templates: require('./templates')
 };

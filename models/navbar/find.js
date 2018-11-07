@@ -1,6 +1,6 @@
 const connection = require('db').connection;
 const db = 'portal_reporting';
-const menuTable = 'navbar';
+const menuTable = 'portal_reporting.navbar';
 
 function menus (callback) {
   const sql =

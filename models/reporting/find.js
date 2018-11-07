@@ -1,7 +1,7 @@
 const connection = require('db').connection;
 const db = 'portal_reporting';
-const reportsTable = 'reports';
-const linkedReportsTable = 'linked_reports';
+const reportsTable = 'portal_reporting.reports';
+const linkedReportsTable = 'portal_reporting.linked_reports';
 
 function fetchReports (callback) {
   const sql =
@@ -53,7 +53,7 @@ function byFilter (filters, callback) {
     descricao,
     quantidade_historico,
     data_lancamento
-  FROM reports
+  FROM ${reportsTable}
     JOIN reports_categorizacoes ON (reports.fk_categorizacao = reports_categorizacoes.id)
   WHERE
     reports_categorizacoes.categoria2 IN (?);`;

@@ -1,20 +1,19 @@
 const mysql = require('mysql');
 const ENV = process.env.NODE_ENV || 'dev';
-const devConfig = require(`./dev`);
-const testConfig = require(`./test`);
-const portalDimConfig = require('./portalDimc.json');
 const connectionError = {'code': 100, 'status': 'Error in connection database'};
-const pool = mysql.createPool(devConfig);
+
+// DB configs
+const fiaConfig = require(`./fia`);
+const portalDimConfig = require('./portalDimc.json');
+
+// Pool configs
+const fiaPool = mysql.createPool(fiaConfig);
 const dimcPool = mysql.createPool(portalDimConfig);
-const poolTest = mysql.createPool(testConfig);
 
 module.exports = (database, sql, values, callback) => {
   let pools = {
-    WSTPVFIA001: pool,
-    SVLGOIPFE05: dimcPool,
-    portal_test: poolTest,
-    fia: pool,
-    noDB: pool
+    WSTPVFIA001: fiaPool,
+    SVLGOIPFE05: dimcPool
   };
 
   /* database = process.env.NODE_ENV
@@ -41,7 +40,7 @@ module.exports = (database, sql, values, callback) => {
       if (err) return callback(err);
       callback(null, rows);
     });
-    if (process.env === 'DEV') console.log(query.sql);
+    console.log(query.sql);
     // if (process.env.DBlOGS);
   });
 };
