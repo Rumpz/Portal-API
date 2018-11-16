@@ -12,9 +12,9 @@ module.exports = (app, passport) => {
   // Templates
   app.use('/templates', isLoggedIn, routes.templates);
   // GET mainpage
-  app.get('/mainpage', isLoggedIn, firstLogIn, (req, res, next) => {
-    res.render('pages/mainpage');
-  });
+  app.use('/mainpage', /* isLoggedIn, firstLogIn,  */routes.mainpage);
+  // GET FAQ's page
+  app.use('/demopage', routes.demopage);
 
   // =====================================
   // LOGIN ===============================
