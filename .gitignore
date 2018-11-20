@@ -1,7 +1,8 @@
-# Logs #uploads #excelFiles
+# Logs #uploads #excelFiles #docs
 uploads
 logs
 excelFiles
+docs
 
 *.log
 npm-debug.log*

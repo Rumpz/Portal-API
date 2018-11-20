@@ -1,5 +1,3 @@
-// var colum = ['Utilizador', 'Primeiro nome', 'Ultimo nome', 'Grupo', 'Estado', 'Password'];
-// var colAll = ['Utilizador', 'Email', 'Primeiro nome', 'Ultimo nome', 'Grupo', 'Data de Nascimento', 'Data de Entrada', 'Foto', 'Carta de Condução', 'Numero cartão NOS', 'Observações', 'Estádo'];
 const FindUser = require('./find');
 const RemoveUser = require('./remove');
 const UpdateUser = require('./update');

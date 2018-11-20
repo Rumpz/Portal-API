@@ -2,6 +2,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt-nodejs');
 const user = require('../models').admin.user;
 
+// Exporting passport function for login
+// Examples used from passport Documentation
 module.exports = function (passport) {
   passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -13,7 +15,7 @@ module.exports = function (passport) {
       done(err, rows[0]);
     });
   });
-
+  // Using passport local strategy
   passport.use(
     'local-login',
     new LocalStrategy({
@@ -22,6 +24,7 @@ module.exports = function (passport) {
       passReqToCallback: true
     },
     function (req, username, password, done) {
+      // select user settings from DB
       user.selectName(username, function (err, rows) {
         if (err) return done(err);
         if (!rows.length) return done(null, false, req.flash('loginMessage', 'No user found.'));

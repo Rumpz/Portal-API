@@ -1,6 +1,5 @@
 const dumpColFindModel = require('models').dump.columns.find;
 const moment = require('moment');
-const async = require('async');
 
 function options (callback) {
   dumpColFindModel.options((err, rows) => {
