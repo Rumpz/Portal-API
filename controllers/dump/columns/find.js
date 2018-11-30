@@ -24,6 +24,8 @@ function columnsByID (query, callback) {
       imagem: adjustedData[0]['imagem'],
       available: adjustedData[0]['available'],
       searchTables: adjustedData[0]['tabela'],
+      procedure: adjustedData[0]['procedure'],
+      procedureArgs: adjustedData[0]['procedureArgs'],
       dbConnection: adjustedData[0]['dbConnection']
     };
     callback(null, renderData);
@@ -55,6 +57,8 @@ function adjustData (arr) {
           combinations: !e.combinations ? null : e.combinations.split('|').map((e) => { return {label: e, value: e}; })
         },
       dbConnection: e.maquina,
+      procedure: e.procedure,
+      procedureArgs: e.procedure_args,
       tabela: !e.tabela ? null : e.tabela.split('|'),
       colunasOutput: setOutputs,
       outputsLabel: outputsLabel,

@@ -39,7 +39,9 @@ function columnsByID (id, callback) {
     dumper.imagem,
     dumper.available,
     dumper.tabela,
-    dumper.maquina
+    dumper.maquina,
+    dumper.procedure,
+    dumper.procedure_args
   FROM ${dumperTable}
     LEFT JOIN dumper_aux_tables ON (dumper.id = dumper_aux_tables.dumperFK)
   WHERE
