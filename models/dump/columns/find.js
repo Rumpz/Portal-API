@@ -19,7 +19,8 @@ function options (callback) {
     dumper.fonte as 'name',
     dumper.id as 'value',
     dumper.available
-  FROM ${dumperTable}`;
+  FROM ${dumperTable}
+  WHERE enabled`;
   connection(portalDB, sql, callback);
 }
 
@@ -46,7 +47,7 @@ function columnsByID (id, callback) {
     LEFT JOIN dumper_aux_tables ON (dumper.id = dumper_aux_tables.dumperFK)
   WHERE
     dumper.id = ?
-  ORDER BY dumper_aux_tables.input_label`;
+  ORDER BY dumper_aux_tables.id`;
   connection(portalDB, sql, id, callback);
 }
 
