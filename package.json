@@ -4,8 +4,9 @@
   "description": "reporting interface demo api",
   "main": "app.js",
   "scripts": {
-    "test": "SET NODE_ENV='DEV' && jest",
-    "start": "SET NODE_ENV='DEV' && node --max_old_space_size=7144 bin/app.js"
+    "test": "SET \"NODE_ENV=test\" && jest",
+    "dev": "SET \"NODE_ENV=dev\" && nodemon bin/app.js",
+    "start": "node --max_old_space_size=7144 bin/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -39,7 +40,8 @@
     "jest": "^23.6.0",
     "standard": "^12.0.1",
     "superagent": "^3.8.3",
-    "supertest": "^3.3.0"
+    "supertest": "^3.3.0",
+    "nodemon": "^1.18.7"
   },
   "jest": {
     "roots": [

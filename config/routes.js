@@ -1,6 +1,7 @@
 const routes = require('../routes');
 const async = require('async');
 const controllers = require('../controllers');
+const { firstLogIn, isLoggedIn, hasPermission } = require('../middlewares');
 
 module.exports = (app, passport) => {
   // Reporting Route
@@ -83,12 +84,16 @@ module.exports = (app, passport) => {
   app.post('/changePassword', controllers.users.changePassword);
 };
 
-function isLoggedIn (req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.redirect('/login');
-}
+/* function isLoggedIn (req, res, next) {
+  console.log('hereeeeeeeeeeeeeeeeeeeeee');
+  if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev') return next();
+  console.log('thereeeeeeeeeeee')
+  return req.isAuthenticated()
+    ? next()
+    : res.redirect('/login');
+} */
 
-function hasPermission (permissions) {
+/* function hasPermission (permissions) {
   return function checkPermission (req, res, next) {
     var hasP = false;
 
@@ -105,10 +110,12 @@ function hasPermission (permissions) {
       else res.redirect('/mainpage');
     });
   };
-}
+} */
 
-function firstLogIn (req, res, next) {
+/* function firstLogIn (req, res, next) {
+  if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev') return next();
   if ((req.user.firstLogIn !== 'True')) return next();
 
   res.render('./pages/newPassword', {message: req.flash('signupMessage'), username: req.user.username});
 }
+ */
