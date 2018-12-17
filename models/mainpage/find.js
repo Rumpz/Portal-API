@@ -1,7 +1,7 @@
 const connection = require('db').connection;
 const dumperConn = require('db').dumperConnection;
 const db = 'portal_reporting';
-const chartsConfig = 'charts_config';
+const chartsConfig = 'portal_reporting.charts_config';
 
 function options (callback) {
   let sql =

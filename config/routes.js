@@ -2,6 +2,8 @@ const routes = require('../routes');
 const async = require('async');
 const controllers = require('../controllers');
 const { firstLogIn, isLoggedIn, hasPermission } = require('../middlewares');
+const multer = require('multer');
+const upload = multer();
 
 module.exports = (app, passport) => {
   // Reporting Route
@@ -16,6 +18,8 @@ module.exports = (app, passport) => {
   app.use('/mainpage', isLoggedIn, firstLogIn, routes.mainpage);
   // GET FAQ's page
   app.use('/demopage', isLoggedIn, routes.demopage);
+  // GET Listagens
+  app.use('/listagens', isLoggedIn, routes.listagens);
 
   // =====================================
   // LOGIN ===============================

@@ -10,9 +10,19 @@ const navigationConfig = require('./navigation');
 // const fiaPool = mysql.createPool(fiaConfig);
 const navigationPool = mysql.createPool(navigationConfig);
 
+// DB configs
+const fiaConfig = require(`./fia`);
+const portalDimConfig = require('./portalDimc.json');
+
+// Pool configs
+const fiaPool = mysql.createPool(fiaConfig);
+const dimcPool = mysql.createPool(portalDimConfig);
+
 module.exports = (database, sql, values, callback) => {
   let pools = {
-    portal_reporting: navigationPool
+    portal_reporting: navigationPool,
+    WSTPVFIA001: fiaPool,
+    SVLGOIPFE05: dimcPool
   };
 
   /* database = process.env.NODE_ENV
@@ -25,14 +35,14 @@ module.exports = (database, sql, values, callback) => {
     values = [];
   }
   pools[database].getConnection(function (err, connection) {
-    if (err) return callback(connectionError);
+    if (err) return callback(err);
     if (testENV) console.log('connected as id ' + connection.threadId);
 
-    if (database !== 'noDB') {
+   /*  if (database !== 'noDB') {
       connection.query(`USE ${database}`, (err) => {
         if (err) return callback(err);
       });
-    }
+    } */
 
     let query = connection.query(sql, values, (err, rows) => {
       connection.release();

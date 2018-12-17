@@ -44,7 +44,7 @@ function columnsByID (id, callback) {
     dumper.procedure,
     dumper.procedure_args
   FROM ${dumperTable}
-    LEFT JOIN dumper_aux_tables ON (dumper.id = dumper_aux_tables.dumperFK)
+    LEFT JOIN portal_reporting.dumper_aux_tables ON (dumper.id = dumper_aux_tables.dumperFK)
   WHERE
     dumper.id = ?
   ORDER BY dumper_aux_tables.id`;

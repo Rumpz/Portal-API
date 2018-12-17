@@ -4,5 +4,6 @@ module.exports = {
   navbar: require('./navbar'),
   templates: require('./templates'),
   mainpage: require('./mainpage'),
-  demopage: require('./demopage')
+  demopage: require('./demopage'),
+  listagens: require('./listagens')
 };
