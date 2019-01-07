@@ -27,7 +27,7 @@ function uploadFile (req, res, next) {
     if (err) return res.status(500).json(err);
     INSERTCONTROLLER.addList(dataToSearch, user, (err, info) => {
       if (err) return res.status(500).json(err);
-      res.status(200).json(info);
+      res.status(200).json({info: info, user: user});
     });
   });
 }
@@ -42,7 +42,7 @@ function getOptions (req, res, next) {
 }
 
 function getXLSX (req, res, next) {
-  const user = 'teste'; // req.user
+  // const user = 'teste'; // req.user
   FINDCONTROLLER.getXLSX(user, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) return res.status(404).json('Not Found');

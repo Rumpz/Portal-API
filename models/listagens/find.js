@@ -33,7 +33,8 @@ function getOptions (id, callback) {
     dumper.imagem,
     dumper.tabela,
     dumper.colunas_output,
-    dumper.listagem
+    dumper.listagem,
+    dumper.available
   FROM ${dumperTable}
   WHERE
     id = ? AND

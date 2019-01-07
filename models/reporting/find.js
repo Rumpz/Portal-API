@@ -20,19 +20,19 @@ function byCategory (category, callback) {
     quantidade_historico,
     data_lancamento
   FROM ${reportsTable}
-  JOIN reports_categorizacoes 
-    ON (reports_categorizacoes.id = reports.fk_categorizacao)
-  LEFT JOIN linked_reports 
-    ON (reports.id = linked_reports.fk_reports)
+  JOIN portal_reporting.reports_categorizacoes 
+    ON (portal_reporting.reports_categorizacoes.id = portal_reporting.reports.fk_categorizacao)
+  LEFT JOIN portal_reporting.linked_reports 
+    ON (portal_reporting.reports.id = portal_reporting.linked_reports.fk_reports)
   WHERE
-    reports_categorizacoes.categoria1 = ?;
+    portal_reporting.reports_categorizacoes.categoria1 = ?;
     
     SELECT
-    reports_categorizacoes.categoria2 as 'cat2',
-    reports_categorizacoes.categoria3 as 'cat3'
-  FROM reports_categorizacoes
+    portal_reporting.reports_categorizacoes.categoria2 as 'cat2',
+    portal_reporting.reports_categorizacoes.categoria3 as 'cat3'
+  FROM portal_reporting.reports_categorizacoes
   WHERE
-    reports_categorizacoes.categoria1 = ?`;
+    portal_reporting.reports_categorizacoes.categoria1 = ?`;
   connection(db, sql, [category, category], callback);
 }
 
@@ -41,7 +41,7 @@ function byReportFK (reportID, callback) {
   `SELECT link 
   FROM ${linkedReportsTable}
   WHERE 
-    linked_reports.fk_reports = ?`;
+    portal_reporting.linked_reports.fk_reports = ?`;
   connection(db, sql, reportID, callback);
 }
 
@@ -54,9 +54,9 @@ function byFilter (filters, callback) {
     quantidade_historico,
     data_lancamento
   FROM ${reportsTable}
-    JOIN reports_categorizacoes ON (reports.fk_categorizacao = reports_categorizacoes.id)
+    JOIN portal_reporting.reports_categorizacoes ON (reports.fk_categorizacao = portal_reporting.reports_categorizacoes.id)
   WHERE
-    reports_categorizacoes.categoria2 IN (?);`;
+    portal_reporting.reports_categorizacoes.categoria2 IN (?);`;
   connection(db, sql, [filters], callback);
 }
 

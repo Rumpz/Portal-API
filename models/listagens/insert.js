@@ -3,7 +3,6 @@ const connection = require('db').connection;
 const listTable = 'portal_reporting.temp_list_holder';
 
 function addList (db, data, user, callback) {
-  console.log('dbbbbbbbbbbbb', db)
   let sql =
   `INSERT IGNORE INTO ${listTable} (field_value, user) VALUES ?`;
   let values = [data, user];
