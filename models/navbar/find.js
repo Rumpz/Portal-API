@@ -5,7 +5,8 @@ const menuTable = 'portal_reporting.navbar';
 function menus (callback) {
   const sql =
   `SELECT *
-  FROM ${menuTable}`;
+  FROM ${menuTable}
+  ORDER by navbar.order`;
   connection(db, sql, callback);
 }
 
