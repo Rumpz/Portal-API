@@ -20,6 +20,8 @@ module.exports = (app, passport) => {
   app.use('/demopage', isLoggedIn, routes.demopage);
   // GET Listagens
   app.use('/listagens', isLoggedIn, routes.listagens);
+  // GET forms
+  app.use('/forms', routes.forms);
 
   // =====================================
   // LOGIN ===============================
