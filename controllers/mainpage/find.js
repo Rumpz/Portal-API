@@ -19,15 +19,28 @@ function graphic (values, callback) {
 }
 
 function getConfig (params, next) {
-  let flag = [];
+  let dataFlag = 0;
   let database = params.map(e => e.maquina);
   params.setup = params.map(e => e.dados);
+  /* params.resumos = params.map(e => e.resumo); */
   params.setup.forEach((element, index) => {
     mainPageFindModel.graphicData(database[index], element, (err, rows) => {
+      let procedure = element.charAt(0).concat(element.charAt(1)).concat(element.charAt(2));
+      if (procedure === 'cal') { rows = rows[0]; }
       if (err) return next(err);
-      flag.push(rows);
-      params[index].data = rows;
-      if (flag.length === params.setup.length) {
+      dataFlag++;
+      if (Array.isArray(rows)) {
+        params[index].data = rows;
+      }
+      /* params.resumos.forEach((element, index) => {
+        !element
+          ? params[index].resumos = null
+          : mainPageFindModel.resumosData(database[index], element, (err, rows) => {
+            if (err) return next(err);
+            params[index].resumo = rows;
+          });
+      }); */
+      if (dataFlag === params.setup.length) {
         next(null, params);
       }
     });
@@ -44,7 +57,8 @@ function adjustGraphic (params, next) {
       axis: e.axis,
       domain: e.domain,
       pagina: e.pagina,
-      order: e.ordem
+      order: e.ordem/* ,
+      resumo: e.resumo */
     };
   });
   if (params.dataToRender.length === params.length) {
