@@ -22,8 +22,6 @@ function getValues (vals) {
     : new Array(+vals.procedureArgs).fill(null);
   // parse selected inputs
   vals.selectedInputs = JSON.parse(vals.selectedInputs);
-  console.log('datesArr', datesArr)
-  console.log('valsData', valsData)
   // get Keys of inputs
   const keys = vals.selectedInputs
     ? Object.keys(vals.selectedInputs)
@@ -36,12 +34,10 @@ function getValues (vals) {
   if (vals.endDate) {
     datesArr[1] = vals.endDate;
   }
-  console.log(keys)
-  console.log(vals.unselectedInputs);
+
   for (let i = 0; i < vals.procedureArgs; i++) {
     // process args index
     const argsIndex = vals.unselectedInputs.indexOf(keys[i]);
-    console.log('argsIndex', vals.procedureArgs)
     if (Array.isArray(vals.selectedInputs[keys[i]])) {
       valsData[argsIndex] = vals.selectedInputs[keys[i]].toString();
     } else if (!Array.isArray(vals.selectedInputs[keys[i]])) {
