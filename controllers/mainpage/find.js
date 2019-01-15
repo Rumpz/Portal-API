@@ -25,7 +25,10 @@ function getConfig (params, next) {
   /* params.resumos = params.map(e => e.resumo); */
   params.setup.forEach((element, index) => {
     mainPageFindModel.graphicData(database[index], element, (err, rows) => {
-      let procedure = element.charAt(0).concat(element.charAt(1)).concat(element.charAt(2));
+      let procedure = element.charAt(0)
+        .concat(element.charAt(1))
+        .concat(element.charAt(2)); // get first 3 chars of the string to compare if its a procedure call
+
       if (procedure === 'cal') { rows = rows[0]; }
       if (err) return next(err);
       dataFlag++;
