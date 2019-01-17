@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // const { isLoggedIn } = require('middlewares');
-const { exportProcedureXLS } = require('controllers').dump.procedure;
+/* const { exportProcedureXLS } = require('controllers').dump.procedure; */
 
 // proxy setting
 const proxy = require('express-http-proxy');

@@ -42,7 +42,7 @@ function getOptions (req, res, next) {
 }
 
 function getXLSX (req, res, next) {
-  // const user = 'teste'; // req.user
+  const user = req.user.username; // const user = 'teste'; // req.user
   FINDCONTROLLER.getXLSX(user, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) return res.status(404).json('Not Found');

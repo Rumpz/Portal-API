@@ -8,7 +8,7 @@ const { getOptions, uploadFile, getAvailables } = require('controllers').listage
 // proxy setting
 const proxy = require('express-http-proxy');
 const getPath = req => require('url').parse(req.url).path;
-const createProxy = ({hostname = 'localhost', port = 8080, path = ''}) =>
+const createProxy = ({hostname = 'localhost', port = 80, path = ''}) =>
   proxy(`${hostname}:${port}`, {proxyReqPathResolver: req => `${path}${getPath(req)}`});
 /****************************************************************************************/
 
