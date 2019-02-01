@@ -2,12 +2,13 @@ const connection = require('db').connection;
 const db = 'portal_reporting';
 const menuTable = 'portal_reporting.navbar';
 
-function menus (callback) {
+function menus (permission, callback) {
   const sql =
   `SELECT *
-  FROM ${menuTable}
-  ORDER by navbar.order`;
-  connection(db, sql, callback);
+    FROM ${menuTable}
+  WHERE permission = ?
+    ORDER by navbar.order`;
+  connection(db, sql, permission, callback);
 }
 
 module.exports = {
