@@ -24,10 +24,6 @@ function getOptions (id, callback) {
   listagemFindModel.getOptions(id, (err, rows) => {
     if (err) return callback(err);
     const options = adjustOptions(rows);
-<<<<<<< controllers/listagens/find.js
-    console.log(options);
-=======
->>>>>>> controllers/listagens/find.js
     callback(null, options);
   });
 }
