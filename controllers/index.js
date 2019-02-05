@@ -5,5 +5,6 @@ module.exports = {
   dump: require('./dump'),
   navbar: require('./navbar'),
   templates: require('./templates'),
-  listagens: require('./listagens')
+  listagens: require('./listagens'),
+  forms: require('./forms')
 };

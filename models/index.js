@@ -6,5 +6,7 @@ module.exports = {
   navbar: require('./navbar'),
   templates: require('./templates'),
   mainpage: require('./mainpage'),
-  listagens: require('./listagens')
+  listagens: require('./listagens'),
+  forms: require('./forms'),
+  logger: require('./logger')
 };
