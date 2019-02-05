@@ -1,9 +1,10 @@
 const routes = require('../routes');
-const async = require('async');
 const controllers = require('../controllers');
-const { firstLogIn, isLoggedIn, hasPermission } = require('../middlewares');
-const multer = require('multer');
-const upload = multer();
+const {
+  firstLogIn,
+  isLoggedIn,
+  hasPermission
+} = require('../middlewares');
 
 module.exports = (app, passport) => {
   // Reporting Route
@@ -21,10 +22,11 @@ module.exports = (app, passport) => {
   // GET Listagens
   app.use('/listagens', isLoggedIn, routes.listagens);
   // GET forms
-  // controller for no Loggers
   app.use('/forms', routes.forms);
 
+  // FORMS noLoggers
   app.get('/forms/noLog', (req, res, next) => { res.render('pages/forms'); });
+
   // =====================================
   // LOGIN ===============================
   // =====================================

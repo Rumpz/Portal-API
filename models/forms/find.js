@@ -16,7 +16,6 @@ function byPermission (permissions, callback) {
 }
 
 function byGroup (id, callback) {
-  console.log('heree', id)
   const sql =
   `SELECT 
     ${formConfigTable}.id AS 'value',

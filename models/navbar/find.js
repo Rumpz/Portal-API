@@ -6,7 +6,7 @@ function menus (permission, callback) {
   const sql =
   `SELECT *
     FROM ${menuTable}
-  WHERE permission = ?
+  WHERE ? REGEXP permission
     ORDER by navbar.order`;
   connection(db, sql, permission, callback);
 }
