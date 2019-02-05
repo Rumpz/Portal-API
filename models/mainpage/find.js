@@ -23,6 +23,10 @@ function graphic (values, callback) {
   connection(db, sql, values, callback);
 }
 
+function resumosData (database, sql, callback) {
+  dumperConn(database, sql, callback);
+}
+
 function graphicData (database, sql, callback) {
   dumperConn(database, sql, callback);
 }
@@ -30,5 +34,6 @@ function graphicData (database, sql, callback) {
 module.exports = {
   options: options,
   graphic: graphic,
-  graphicData: graphicData
+  graphicData: graphicData,
+  resumosData: resumosData
 };

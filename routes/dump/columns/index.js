@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // const { isLoggedIn } = require('middlewares');
-const { columnsByID, getOptions, exportXLS } = require('controllers').dump.columns;
+const { columnsByID, getOptions } = require('controllers').dump.columns;
 
 // proxy setting
 const proxy = require('express-http-proxy');
