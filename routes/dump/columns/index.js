@@ -11,8 +11,9 @@ const createProxy = ({hostname = 'localhost', port = 8080, path = ''}) =>
   proxy(`${hostname}:${port}`, {proxyReqPathResolver: req => `${path}${getPath(req)}`});
 /****************************************************************************************/
 
+const { logger } = require('middlewares');
 router.get('/options', getOptions);
 router.get('/columnsByID', columnsByID);
-router.get('/exportXLS', createProxy({port: 7000, path: '/dump/columns'}));
+router.get('/exportXLS', logger, createProxy({port: 7000, path: '/dump/columns'}));
 
 module.exports = router;

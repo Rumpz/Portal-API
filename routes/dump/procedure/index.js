@@ -10,6 +10,7 @@ const getPath = req => require('url').parse(req.url).path;
 const createProxy = ({hostname = 'localhost', port = 8080, path = ''}) =>
   proxy(`${hostname}:${port}`, {proxyReqPathResolver: req => `${path}${getPath(req)}`});
 
-router.get('/exportProcedureXLS', createProxy({ port: 7000, path: '/dump/procedure' }));
+const { logger } = require('middlewares');
+router.get('/exportProcedureXLS', logger, createProxy({ port: 7000, path: '/dump/procedure' }));
 
 module.exports = router;

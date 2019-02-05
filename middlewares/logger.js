@@ -1,9 +1,28 @@
+const loggerInsertModel = require('../models').logger.insert;
+
 module.exports = (req, res, next) => {
-  console.log('logggger MIDDLEWARE');
-  console.log(req.client['_peername']['address']);
-  console.log('req.headers.host', req.headers.host);
-// IP ADDRESS FOR NO LOGGERS
-  // const user = req.user.username; // USERNAME INSERT FOR LOGGERS
-  // TODO INSERT FUNCTION INTO TABLE WITH THE ACTION DETAIL
-  next();
+  let table = {};
+
+  if (req.method === 'GET') {
+    table = req.query;
+  }
+
+  if (req.method === 'PUT' || req.method === 'POST') {
+    table = req.body;
+  }
+
+  const insertObject = {
+    user: !req.user
+      ? `NoLog|${req.ip}`
+      : `${req.user.username}|${req.ip}`,
+    link: req.originalUrl.split('?')[0],
+    action: req.method,
+    requestQuery: JSON.stringify(table)
+  };
+
+  loggerInsertModel.logAction(insertObject, (err, rows) => {
+    if (err) return next(err);
+    console.log('Logged');
+    return next();
+  });
 };

@@ -21,8 +21,10 @@ module.exports = (app, passport) => {
   // GET Listagens
   app.use('/listagens', isLoggedIn, routes.listagens);
   // GET forms
+  // controller for no Loggers
   app.use('/forms', routes.forms);
 
+  app.get('/forms/noLog', (req, res, next) => { res.render('pages/forms'); });
   // =====================================
   // LOGIN ===============================
   // =====================================

@@ -2,7 +2,7 @@ const FINDCONTROLLER = require('./find');
 const UPDATECONTROLLER = require('./update');
 
 function getOptions (req, res, next) {
-  const permission = req.user.group_permission;
+  const permission = !req.user ? 'noLog' : req.user.group_permission;
   FINDCONTROLLER.findFormByPermission(permission, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) return res.status(404).json('Not Found');
@@ -29,7 +29,7 @@ function getForm (req, res, next) {
 }
 
 function updateFormsTable (req, res, next) {
-  const user = req.user.username;
+  const user = !req.user ? 'noLog' : req.user.username;
   const ip = req.client['_peername']['address'];
   UPDATECONTROLLER.updateForm(req.body.data, user, ip, (err, rows) => {
     if (err) return res.status(500).json(err);

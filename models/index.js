@@ -7,5 +7,6 @@ module.exports = {
   templates: require('./templates'),
   mainpage: require('./mainpage'),
   listagens: require('./listagens'),
-  forms: require('./forms')
+  forms: require('./forms'),
+  logger: require('./logger')
 };

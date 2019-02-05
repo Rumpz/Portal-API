@@ -5,7 +5,9 @@ const { getGraphic, options } = require('controllers').mainpage;
 router.get('/', (req, res, next) => {
   res.render('pages/mainpage');
 });
+const { logger } = require('middlewares');
+
 router.get('/options', options);
-router.get('/graphic', getGraphic);
+router.get('/graphic', logger, getGraphic);
 
 module.exports = router;
