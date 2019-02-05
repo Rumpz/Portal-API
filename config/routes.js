@@ -12,7 +12,7 @@ module.exports = (app, passport) => {
   // Dump Route
   app.use('/dump', isLoggedIn, routes.dump);
   // Navbar Route
-  app.use('/navbar', isLoggedIn, routes.navbar);
+  app.use('/navbar', routes.navbar);
   // Templates
   app.use('/templates', isLoggedIn, routes.templates);
   // GET mainpage
