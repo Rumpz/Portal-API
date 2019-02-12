@@ -16,6 +16,6 @@ function byUser (db, user, callback) {
   const sql =
   `DELETE
     FROM portal_reporting.temp_list_holder
-  WHERE user = ?`;
+  WHERE temp_list_holder.username = ?`;
   connection(db, sql, user, callback);
 }

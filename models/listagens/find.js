@@ -47,6 +47,6 @@ function byUser (user, callback) {
   const sql =
   `SELECT field_value
     FROM portal_reporting.temp_list_holder
-  WHERE user = ?`;
+  WHERE temp_list_holder.username = ?`;
   dumperConn(portalDB, sql, user, callback);
 }

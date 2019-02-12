@@ -11,8 +11,7 @@ module.exports = {
 function fetchReports (callback) {
   reportFindModel.fetchReports((err, rows) => {
     if (err) return callback(err);
-    const toSend = SERVICES.tableAdjuster(rows);
-    callback(null, toSend);
+    callback(null, rows);
   });
 }
 

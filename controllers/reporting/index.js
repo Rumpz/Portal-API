@@ -26,7 +26,7 @@ function byCategory (req, res, next) {
 function getReport (req, res, next) {
   FINDCONTROLLER.byReportFK(req.query, (err, rows) => {
     if (err) return res.status(500).json(err);
-    if (!rows) return res.status(404).json('Not Found');
+    // if (!rows) return res.status(404).json('Not Found');
     res.status(200).json(rows);
   });
 }

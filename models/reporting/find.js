@@ -6,8 +6,18 @@ const linkedReportsTable = 'portal_reporting.linked_reports';
 function fetchReports (callback) {
   const sql =
   `SELECT 
-    *
-  FROM ${reportsTable}`;
+    portal_reporting.reports_categorizacoes.categoria1 AS 'categoria',
+    portal_reporting.reports.id,
+    portal_reporting.reports.nome,
+    portal_reporting.reports.descricao,
+    portal_reporting.reports.data_lancamento
+  FROM ${reportsTable}
+    JOIN 
+    portal_reporting.reports_categorizacoes 
+      ON (portal_reporting.reports.fk_categorizacao = portal_reporting.reports_categorizacoes.id)
+    JOIN portal_reporting.linked_reports
+      ON (portal_reporting.linked_reports.fk_reports = portal_reporting.reports_categorizacoes.id)
+  ORDER BY  categoria, reports.nome`;
   connection(db, sql, callback);
 }
 

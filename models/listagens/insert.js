@@ -4,7 +4,7 @@ const listTable = 'portal_reporting.temp_list_holder';
 
 function addList (db, data, user, callback) {
   let sql =
-  `INSERT IGNORE INTO ${listTable} (field_value, user) VALUES ?`;
+  `INSERT IGNORE INTO ${listTable} (field_value, username) VALUES ?`;
   let values = [data, user];
   connection(db, sql, values, callback);
 }
