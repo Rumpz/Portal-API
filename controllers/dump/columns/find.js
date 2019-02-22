@@ -1,8 +1,8 @@
 const dumpColFindModel = require('models').dump.columns.find;
 const moment = require('moment');
 
-function options (callback) {
-  dumpColFindModel.options((err, rows) => {
+function options (permission, callback) {
+  dumpColFindModel.options(permission, (err, rows) => {
     if (err) return callback(err);
     callback(null, rows);
   });

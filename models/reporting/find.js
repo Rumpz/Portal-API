@@ -3,7 +3,7 @@ const db = 'portal_reporting';
 const reportsTable = 'portal_reporting.reports';
 const linkedReportsTable = 'portal_reporting.linked_reports';
 
-function fetchReports (callback) {
+function fetchReports (permission, callback) {
   const sql =
   `SELECT 
     portal_reporting.reports_categorizacoes.categoria1 AS 'categoria',
@@ -17,8 +17,9 @@ function fetchReports (callback) {
       ON (portal_reporting.reports.fk_categorizacao = portal_reporting.reports_categorizacoes.id)
     JOIN portal_reporting.linked_reports
       ON (portal_reporting.linked_reports.fk_reports = portal_reporting.reports_categorizacoes.id)
+      WHERE permission REGEXP ?
   ORDER BY  categoria, reports.nome`;
-  connection(db, sql, callback);
+  connection(db, sql, permission, callback);
 }
 
 function byCategory (category, callback) {

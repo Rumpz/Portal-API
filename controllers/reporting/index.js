@@ -8,7 +8,8 @@ module.exports = {
 };
 
 function init (req, res, next) {
-  FINDCONTROLLER.fetchReports((err, rows) => {
+  const permission = req.user.group_permission;
+  FINDCONTROLLER.fetchReports(permission, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows) return res.status(404).json('Not Found');
     res.status(200).json(rows);

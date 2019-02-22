@@ -13,15 +13,18 @@ module.exports = {
 };
 
 // Fetch options for select Field
-function options (callback) {
+function options (permission, callback) {
   const sql =
   `SELECT
     dumper.fonte as 'name',
     dumper.id as 'value',
     dumper.available
   FROM ${dumperTable}
-  WHERE enabled`;
-  connection(portalDB, sql, callback);
+  WHERE 
+    enabled AND
+    dumper.permission REGEXP ?
+  ORDER BY dumper.order`;
+  connection(portalDB, sql, permission, callback);
 }
 
 // Fetch Input / Output options based on the choosen source

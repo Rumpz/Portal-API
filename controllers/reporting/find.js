@@ -8,8 +8,8 @@ module.exports = {
   byFilter: byFilter
 };
 
-function fetchReports (callback) {
-  reportFindModel.fetchReports((err, rows) => {
+function fetchReports (permission, callback) {
+  reportFindModel.fetchReports(permission, (err, rows) => {
     if (err) return callback(err);
     callback(null, rows);
   });
