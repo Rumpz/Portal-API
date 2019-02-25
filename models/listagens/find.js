@@ -13,7 +13,7 @@ module.exports = {
   byUser: byUser
 };
 
-function getAvailables (callback) {
+function getAvailables (permission, callback) {
   const sql =
   `SELECT
     dumper.id as value,
@@ -22,8 +22,9 @@ function getAvailables (callback) {
   FROM ${dumperTable}
   WHERE
     IFNULL(dumper.listagem, '') != '' AND
+    dumper.permission REGEXP ? AND
     dumper.enabled`;
-  connection(portalDB, sql, callback);
+  connection(portalDB, sql, permission, callback);
 }
 
 function getOptions (id, callback) {

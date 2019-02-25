@@ -7,8 +7,8 @@ module.exports = {
   getXLSX: getXLSX
 };
 
-function getAvailables (callback) {
-  listagemFindModel.getAvailables((err, rows) => {
+function getAvailables (permission, callback) {
+  listagemFindModel.getAvailables(permission, (err, rows) => {
     if (err) return callback(err);
     const availables = rows.map((e) => {
       return {
