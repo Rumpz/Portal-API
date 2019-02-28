@@ -41,6 +41,7 @@ function columnsByID (id, callback) {
     dumper.colunas_output,
     dumper.filtros_datas,
     dumper.imagem,
+    dumper.tooltip,
     dumper.available,
     dumper.tabela,
     dumper.maquina,

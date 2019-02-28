@@ -22,6 +22,7 @@ function columnsByID (query, callback) {
       outputsLabel: adjustedData[0]['outputsLabel'],
       filtrosDatas: adjustedData[0]['filtrosDatas'],
       imagem: adjustedData[0]['imagem'],
+      tooltip: adjustedData[0]['tooltip'],
       available: adjustedData[0]['available'],
       searchTables: adjustedData[0]['tabela'],
       procedure: adjustedData[0]['procedure'],
@@ -57,6 +58,7 @@ function adjustData (arr) {
           combinations: !e.combinations ? null : e.combinations.split('|').map((e) => { return {label: e, value: e}; })
         },
       dbConnection: e.maquina,
+      tooltip: e.tooltip,
       procedure: e.procedure,
       procedureArgs: e.procedure_args,
       tabela: !e.tabela ? null : e.tabela.split('|'),

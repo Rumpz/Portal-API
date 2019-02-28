@@ -32,6 +32,7 @@ function adjustOptions (arr) {
   const options = arr.map((e) => {
     const tabela = e.tabela ? e.tabela.split('|') : null;
     const imagem = e.imagem ? e.imagem.split('|') : null;
+    const filtrosDatas = e.filtros_datas ? e.filtros_datas.split('|') : null;
     const outputs = !e.colunas_output ? null : e.colunas_output.split('|');
     const setOutputs = {};
     const outputsLabel = {};
@@ -46,6 +47,7 @@ function adjustOptions (arr) {
       outputs: setOutputs,
       outputsLabel: outputsLabel,
       tabela: e.tabela ? e.tabela.split('|') : null,
+      filtrosDatas: filtrosDatas,
       available: e.available
     };
   });

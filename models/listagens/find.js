@@ -23,7 +23,8 @@ function getAvailables (permission, callback) {
   WHERE
     IFNULL(dumper.listagem, '') != '' AND
     dumper.permission REGEXP ? AND
-    dumper.enabled`;
+    dumper.enabled 
+    ORDER BY dumper.order`;
   connection(portalDB, sql, permission, callback);
 }
 
@@ -35,6 +36,7 @@ function getOptions (id, callback) {
     dumper.tabela,
     dumper.colunas_output,
     dumper.listagem,
+    dumper.filtros_datas,
     dumper.available
   FROM ${dumperTable}
   WHERE
