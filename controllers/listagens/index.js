@@ -47,7 +47,7 @@ function getOptions (req, res, next) {
 function getXLSX (req, res, next) {
   const user = process.env.NODE_ENV === 'Production'
     ? req.user.username
-    : 'sfemartins';
+    : 'devOps';
   FINDCONTROLLER.getXLSX(user, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) return res.status(404).json('Not Found');

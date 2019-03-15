@@ -2,7 +2,14 @@ const FINDCONTROLLER = require('./find');
 const UPDATECONTROLLER = require('./update');
 
 function getOptions (req, res, next) {
-  const permission = !req.user ? 'noLog' : req.user.form_permission;
+  let permission = '';
+
+  if (process.env.NODE_ENV === 'Production') {
+    permission = !req.user ? 'noLog' : req.user.form_permission;
+  } else {
+    permission = '^GI$|^AM$|^noLog$|^BI$|^GERAL$';
+  }
+
   FINDCONTROLLER.findFormByPermission(permission, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) return res.status(404).json('Not Found');
@@ -29,7 +36,14 @@ function getForm (req, res, next) {
 }
 
 function updateFormsTable (req, res, next) {
-  const user = !req.user ? 'noLog' : req.user.username;
+  let user = '';
+
+  if (process.env.NODE_ENV === 'Production') {
+    user = !req.user ? 'noLog' : req.user.form_permission;
+  } else {
+    user = 'devOps';
+  }
+
   const ip = req.client['_peername']['address'];
   UPDATECONTROLLER.updateForm(req.body.data, user, ip, (err, rows) => {
     if (err) return res.status(500).json(err);
