@@ -2,6 +2,7 @@ const loggerInsertModel = require('../models').logger.insert;
 
 module.exports = (req, res, next) => {
   let table = {};
+  let user = '';
 
   if (req.method === 'GET') {
     table = req.query;
@@ -11,10 +12,16 @@ module.exports = (req, res, next) => {
     table = req.body;
   }
 
-  const insertObject = {
-    user: !req.user
+  if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test') {
+    user = `devOps|${req.ip}`;
+  } else {
+    user = !req.user
       ? `NoLog|${req.ip}`
-      : `${req.user.username}|${req.ip}`,
+      : `${req.user.username}|${req.ip}`;
+  }
+
+  const insertObject = {
+    user: user,
     link: req.originalUrl.split('?')[0],
     action: req.method,
     requestQuery: JSON.stringify(table)

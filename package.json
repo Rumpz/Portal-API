@@ -6,7 +6,7 @@
   "scripts": {
     "test": "SET \"NODE_ENV=test\" && jest",
     "dev": "SET \"NODE_ENV=dev\" && nodemon bin/app.js",
-    "start": "node --max_old_space_size=7144 bin/app.js"
+    "start": "SET \"NODE_ENV=Production\" && node --max_old_space_size=7144 bin/app.js"
   },
   "author": "",
   "license": "ISC",

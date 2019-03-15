@@ -8,7 +8,9 @@ module.exports = {
 };
 
 function init (req, res, next) {
-  const permission = req.user.group_permission;
+  const permission = process.env.NODE_ENV === 'Production'
+    ? req.user.group_permission
+    : 'GERAL';
   FINDCONTROLLER.fetchReports(permission, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows) return res.status(404).json('Not Found');

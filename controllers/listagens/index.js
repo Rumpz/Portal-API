@@ -10,7 +10,9 @@ module.exports = {
 };
 
 function getAvailables (req, res, next) {
-  const permission = req.user.dumper_permission;
+  const permission = process.env.NODE_ENV === 'Production'
+    ? req.user.dumper_permission
+    : 'GERAL';
   FINDCONTROLLER.getAvailables(permission, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) return res.status(404).json('Not Found');
@@ -43,7 +45,9 @@ function getOptions (req, res, next) {
 }
 
 function getXLSX (req, res, next) {
-  const user = req.user.username; // const user = 'teste'; // req.user
+  const user = process.env.NODE_ENV === 'Production'
+    ? req.user.username
+    : 'sfemartins';
   FINDCONTROLLER.getXLSX(user, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) return res.status(404).json('Not Found');

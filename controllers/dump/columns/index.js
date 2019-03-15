@@ -1,7 +1,9 @@
 const FINDCONTROLLER = require('./find');
 
 function getOptions (req, res, next) {
-  const permission = 'GERAL' //req.user.dumper_permission;
+  const permission = process.env.NODE_ENV === 'Production'
+    ? req.user.dumper_permission
+    : 'GERAL';
   FINDCONTROLLER.options(permission, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) return res.status(404).json('Not Found');

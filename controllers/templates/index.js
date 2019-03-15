@@ -42,9 +42,12 @@ function insert (req, res, next) {
 }
 
 function update (req, res, next) {
+  const username = process.env.NODE_ENV === 'Production'
+    ? req.user.username
+    : 'devOps';
   let id = req.params.id;
   let values = req.body;
-  values = Object.assign({user: req.user.username}, values);
+  values = Object.assign({user: username}, values);
   if (!id) return res.status(400).json('invalid params');
   UPDATECONTROLLER(id, values, (err, results) => {
     if (err) return res.status(500).json(err);
