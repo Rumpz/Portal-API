@@ -30,19 +30,32 @@ function byGroup (formIDs, callback) {
   });
 }
 
-function formByID (formID, callback) {
+function formByID (formID, filters, callback) {
   const dataToSend = [];
   formsFindModel.byID(formID, (err, rows) => {
     if (err) return callback(err);
-    const {maquina, tabela_dados, proc_antes} = rows[0];
+    // if procArgs check length + proc_antes
+    const { maquina, tabela_dados, proc_antes } = rows[0];
     formsFindModel.fieldsData(maquina, tabela_dados, (err, vals) => {
       if (err) return callback(err);
       let formHeader = adjustFormHeader(rows);
       let fields = getFields(rows);
       let table = getTable(vals);
+      // Check first procedure
       if (formHeader.proc_antes) {
-        // Check first procedure
-        formsFindModel.byProcedure(maquina, proc_antes, (err, result) => {
+        // check if procedure takes args
+        if (formHeader.procedureArgs) {
+          if (filters) {
+            filters = Object.values(filters);
+            for (let i in filters) { // check all args for empty string
+              if (filters[i] === '') { filters[i] = null; } // set all empty strings to null
+            }
+          } else {
+            const argsLength = Object.keys(formHeader.procedure_cols[0]).length; // get args length
+            filters = new Array(argsLength).fill(null); // fill all args with null if no fllters
+          }
+        }
+        formsFindModel.byProcedure(maquina, proc_antes, filters, (err, result) => {
           if (err) return callback(err);
           result = result[0][0]; // get info from query result
           formHeader.proc_antes = result; // proc_antes is now the is own result
@@ -64,7 +77,9 @@ function adjustFormHeader (data) {
     proc_antes: data[0].proc_antes,
     proc_depois: data[0].proc_depois,
     tabela_dados: data[0].tabela_dados,
-    nome_form: data[0].nome_form
+    nome_form: data[0].nome_form,
+    procedureArgs: data[0].procedureArgs,
+    procedure_cols: JSON.parse(data[0].procedure_cols)
   };
 }
 

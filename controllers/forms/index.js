@@ -27,8 +27,8 @@ function formByGroupID (req, res, next) {
 }
 
 function getForm (req, res, next) {
-  const { id } = req.query;
-  FINDCONTROLLER.formByID(id, (err, rows) => {
+  const {id, filters} = req.query;
+  FINDCONTROLLER.formByID(id, filters, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) res.status(404).json('Not Found');
     res.status(200).json(rows);

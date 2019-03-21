@@ -33,6 +33,8 @@ function byID (id, callback) {
     ${formConfigTable}.mensagem,
     ${formConfigTable}.proc_antes,
     ${formConfigTable}.proc_depois,
+    ${formConfigTable}.procedureArgs,
+    ${formConfigTable}.procedure_cols,
     ${formConfigTable}.tabela_dados,
     ${formConfigTable}.nome_form,
     ${formAuxTable}.campo,
@@ -60,8 +62,8 @@ function fieldsData (database, table, callback) {
   connection(database, sql, callback);
 }
 
-function byProcedure (database, sql, callback) {
-  connection(database, sql, callback);
+function byProcedure (database, sql, values, callback) {
+  connection(database, sql, values, callback);
 }
 
 function tableInfo (database, table, callback) {
