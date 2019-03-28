@@ -6,5 +6,6 @@ module.exports = {
   mainpage: require('./mainpage'),
   demopage: require('./demopage'),
   listagens: require('./listagens'),
-  forms: require('./forms')
+  forms: require('./forms'),
+  carregamentos: require('./carregamentos')
 };
