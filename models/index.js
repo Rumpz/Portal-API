@@ -8,5 +8,6 @@ module.exports = {
   mainpage: require('./mainpage'),
   listagens: require('./listagens'),
   forms: require('./forms'),
-  logger: require('./logger')
+  logger: require('./logger'),
+  carregamentos: require('./carregamentos')
 };

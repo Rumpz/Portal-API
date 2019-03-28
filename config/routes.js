@@ -23,9 +23,10 @@ module.exports = (app, passport) => {
   app.use('/listagens', isLoggedIn, routes.listagens);
   // GET forms
   app.use('/forms', routes.forms);
-
   // FORMS noLoggers
   app.get('/forms/noLog', (req, res, next) => { res.render('pages/forms'); });
+  // GET Carregementos
+  app.use('/carregamentos', routes.carregamentos);
 
   // =====================================
   // LOGIN ===============================
@@ -44,8 +45,6 @@ module.exports = (app, passport) => {
     failureFlash: true // allow flash messages
   }),
   function (req, res) {
-    console.log('hello');
-
     if (req.body.remember) {
       req.session.cookie.maxAge = 1000 * 60 * 60 * 4;
     } else {

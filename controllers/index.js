@@ -6,5 +6,6 @@ module.exports = {
   navbar: require('./navbar'),
   templates: require('./templates'),
   listagens: require('./listagens'),
-  forms: require('./forms')
+  forms: require('./forms'),
+  carregamentos: require('./carregamentos')
 };
