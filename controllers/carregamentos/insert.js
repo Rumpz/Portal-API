@@ -3,9 +3,9 @@ const carrInsertModel = require('models').carregamentos.insert;
 function insertXLSX (user, options, xlsx, callback) {
   const data = parseData(xlsx); // parse xlsx data to object
   const columns = options.colunas.split('|'); // get columns to filter
-  const insertValues = adjustInsertData(columns, data); // filter values by insert columns data
+  let insertValues = adjustInsertData(columns, data); // filter values by insert columns data
   insertValues.forEach((el) => { el.push(user); }); // add User for updatedBy column
-
+  insertValues = insertValues.filter(() => { return true; });
   carrInsertModel.xlsxToTable(options, insertValues, (err, rows) => {
     if (err) return callback(err);
     callback(null, rows);
@@ -39,7 +39,7 @@ function parseData (file) {
           break;
         }
       }
-      var col = z.substring(0,tt);
+      var col = z.substring(0, tt);
       var row = parseInt(z.substring(tt));
       var value = worksheet[z].v;
 
