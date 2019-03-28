@@ -4,7 +4,7 @@ const INSERTCONTROLLER = require('./insert');
 function getTableOptions (req, res, next) {
   let permission = '';
   if (process.env.NODE_ENV === 'Production') {
-    permission = req.user.uploadPermission;
+    permission = req.user.upload_permission;
   } else {
     permission = '^BI$|^GERAL$';
   }
