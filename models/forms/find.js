@@ -51,7 +51,7 @@ function byID (id, callback) {
     ${formAuxTable}.placeholder
   FROM ${formConfigTable}
     LEFT JOIN  ${formAuxTable} ON ${formAuxTable}.form_FK = ${formConfigTable}.id
-  WHERE form_cfg.id = ?
+  WHERE form_cfg.id = ? 
   ORDER BY tableOrder`;
   connection(db, sql, id, callback);
 }
@@ -66,10 +66,10 @@ function byProcedure (database, sql, values, callback) {
   connection(database, sql, values, callback);
 }
 
-function tableInfo (database, table, callback) {
+function tableInfo (database, table, user, callback) {
   let sql =
-  `SELECT * FROM ${table}`;
-  connection(database, sql, callback);
+  `SELECT * FROM ${table} WHERE RequestedBy = ?`;
+  connection(database, sql, user, callback);
 }
 
 module.exports = {

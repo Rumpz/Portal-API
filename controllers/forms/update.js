@@ -7,7 +7,6 @@ function updateForm (values, user, ip, callback) {
   const dataToUpdate = [headers, Object.assign(values, {updatedBy: `${user}|${ip}`})];
   formsUpdateModel.tableByID(dataToUpdate, (err, rows) => {
     if (err) return callback(err);
-    console.log('aaaaaaaaa', headers.proc_depois);
     const { dbConnection, proc_depois } = headers;
     values.proc_depois
       ? formsFindModel.byProcedure(dbConnection, proc_depois, (err, procResults) => {

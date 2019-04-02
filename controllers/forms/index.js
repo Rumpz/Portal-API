@@ -28,7 +28,14 @@ function formByGroupID (req, res, next) {
 
 function getForm (req, res, next) {
   const {id, filters} = req.query;
-  FINDCONTROLLER.formByID(id, filters, (err, rows) => {
+  let user = '';
+  
+  if (process.env.NODE_ENV === 'Production') {
+    user = !req.user ? 'noLog' : req.user.username;
+  } else {
+    user = 'devOps';
+  }
+  FINDCONTROLLER.formByID(id, filters, user, (err, rows) => {
     if (err) return res.status(500).json(err);
     if (!rows.length) res.status(404).json('Not Found');
     res.status(200).json(rows);
@@ -52,8 +59,16 @@ function updateFormsTable (req, res, next) {
 }
 
 function refreshTable (req, res, next) {
+  let user = '';
+
+  if (process.env.NODE_ENV === 'Production') {
+    user = !req.user ? 'noLog' : req.user.username;
+  } else {
+    user = 'devOps';
+  }
+
   const { database, table } = req.query;
-  FINDCONTROLLER.tableInfo(database, table, (err, rows) => {
+  FINDCONTROLLER.tableInfo(database, table, user, (err, rows) => {
     if (err) return res.status(500).json(err);
     res.status(200).json(rows);
   });

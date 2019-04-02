@@ -1,7 +1,7 @@
 const formsFindModel = require('models').forms.find;
 
-function tableInfo (database, table, callback) {
-  formsFindModel.tableInfo(database, table, (err, rows) => {
+function tableInfo (database, table, user, callback) {
+  formsFindModel.tableInfo(database, table, user, (err, rows) => {
     if (err) return callback(err);
     const table = getTable(rows);
     callback(null, table);
@@ -30,7 +30,7 @@ function byGroup (formIDs, callback) {
   });
 }
 
-function formByID (formID, filters, callback) {
+function formByID (formID, filters, user, callback) {
   const dataToSend = [];
   formsFindModel.byID(formID, (err, rows) => {
     if (err) return callback(err);
@@ -55,7 +55,8 @@ function formByID (formID, filters, callback) {
             filters = new Array(argsLength).fill(null); // fill all args with null if no fllters
           }
         }
-        formsFindModel.byProcedure(maquina, proc_antes, filters, (err, result) => {
+        let proc = proc_antes.replace('RequestedBy', user);
+        formsFindModel.byProcedure(maquina, proc, filters, (err, result) => {
           if (err) return callback(err);
           result = result[0][0]; // get info from query result
           formHeader.proc_antes = result; // proc_antes is now the is own result
