@@ -8,12 +8,15 @@ function updateForm (values, user, ip, callback) {
   formsUpdateModel.tableByID(dataToUpdate, (err, rows) => {
     if (err) return callback(err);
     const { dbConnection, proc_depois } = headers;
-    values.proc_depois
-      ? formsFindModel.byProcedure(dbConnection, proc_depois, (err, procResults) => {
+    if (proc_depois) {
+      let proc = proc_depois.replace('RequestedBy', user);
+      formsFindModel.byProcedure(dbConnection, proc, (err, procResults) => {
         if (err) return callback(err);
         callback(null, procResults);
-      })
-      : callback(null, rows);
+      });
+    } else {
+      callback(null, rows);
+    }
   });
 }
 

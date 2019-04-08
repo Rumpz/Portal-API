@@ -38,7 +38,7 @@ module.exports = (database, sql, values, callback) => {
     if (err) return callback(err);
     if (testENV) console.log('connected as id ' + connection.threadId);
 
-   /*  if (database !== 'noDB') {
+    /*  if (database !== 'noDB') {
       connection.query(`USE ${database}`, (err) => {
         if (err) return callback(err);
       });
@@ -49,6 +49,6 @@ module.exports = (database, sql, values, callback) => {
       if (err) return callback(err);
       callback(null, rows);
     });
-    if (testENV) console.log(query.sql);
+      // if (testENV) console.log(query.sql);
   });
 };

@@ -25,7 +25,9 @@ function uploadFile (req, res, next) {
   const result = fileData.filter(e => e !== '');
   const db = req.query['0'];
   const dataToSearch = {dbConnection: db, values: result};
-  const user = req.user.username;
+  const user = process.env.NODE_ENV === 'Production'
+    ? req.user.username
+    : 'devOps';
   DELETECONTROLLER.byUser(db, user, (err, rows) => {
     if (err) return res.status(500).json(err);
     INSERTCONTROLLER.addList(dataToSearch, user, (err, info) => {

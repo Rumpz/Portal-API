@@ -1,39 +1,42 @@
 // const listagemFindModel = require('models').listagens.find;
 const listagemInsertModel = require('models').listagens.insert;
+const async = require('async');
 
 function addList (data, user, callback) {
   const batchLimit = 10000;
   let insertedRows = 0;
   let batchRows = [];
+  let fullBatch = [];
   let counter = 0;
   let end = 1;
-  data.values.forEach((el, index) => {
+
+  for (let i = 0; i < data.values.length; i++) {
     if (counter >= batchLimit) {
-      console.log('insert batch');
-      listagemInsertModel.addList(data.dbConnection, batchRows, user, (err, rows) => {
-        if (err) return callback(err);
-        console.log('affectedRows', rows.affectedRows);
-        insertedRows += rows.affectedRows;
-        console.log('insertedRows', insertedRows);
-      });
+      fullBatch.push(batchRows);
       batchRows = [];
       counter = 0;
     }
     if (end >= data.values.length) {
-      setTimeout(() => {
-        listagemInsertModel.addList(data.dbConnection, batchRows, user, (err, rows) => {
-          if (err) return callback(err);
-          console.log('last call affectedRows', rows.affectedRows);
-          insertedRows += rows.affectedRows;
-          console.log('last call insertedRows', insertedRows);
-          callback(null, insertedRows);
-        });
-      }, 5000);
+      fullBatch.push(batchRows);
     }
     counter++;
     end++;
-    batchRows.push([el, user]);
-  });
+    batchRows.push([data.values[i], user]);
+  }
+
+  async.eachLimit(fullBatch, 1, loop, last);
+  function loop (fullBatch, callback) {
+    listagemInsertModel.addList(data.dbConnection, fullBatch, user, (err, rows) => {
+      if (err) return callback(err);
+      insertedRows += rows.affectedRows;
+      console.log('affectedRows', rows.affectedRows);
+      callback();
+    });
+  }
+  function last (err) {
+    if (err) return callback(err);
+    return callback(null, insertedRows);
+  }
 }
 
 module.exports = {

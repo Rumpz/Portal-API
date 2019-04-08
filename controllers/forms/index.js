@@ -46,7 +46,7 @@ function updateFormsTable (req, res, next) {
   let user = '';
 
   if (process.env.NODE_ENV === 'Production') {
-    user = !req.user ? 'noLog' : req.user.form_permission;
+    user = !req.user ? 'noLog' : req.user.username;
   } else {
     user = 'devOps';
   }
