@@ -37,14 +37,14 @@ function importXLXS (req, res, next) {
   INSERTCONTROLLER.insertXLSX(user, options, file, (err, insertInfo) => {
     if (err) return res.status(500).json(err);
     // If table is Truncated the Insert OKPacket comes on the second array element
-    if (+options.TRUNCATE) insertInfo = insertInfo[1];
+    // if (+options.TRUNCATE) insertInfo = insertInfo[1];
     /* if (options.procedimento) { */
     FINDCONTROLLER.byProcedure(options.maquina, options.procedimento, (err, procResponse) => {
       if (err) return res.status(500).json(err);
       const responseObject = {
         success: procResponse[0][0]['success'],
         message: procResponse[0][0]['message'],
-        insertedRows: insertInfo
+        insertedRows: {affectedRows: insertInfo}
       };
       res.status(200).json(responseObject);
     });
