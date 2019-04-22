@@ -68,7 +68,7 @@ function byProcedure (database, sql, values, callback) {
 
 function tableInfo (database, table, user, callback) {
   let sql =
-  `SELECT * FROM ${table} WHERE RequestedBy = ?`;
+  `SELECT * FROM ${table} WHERE RequestedBy = ? order by id`;
   connection(database, sql, user, callback);
 }
 
